@@ -25,6 +25,7 @@ module.exports = {
       items: [
         'networks',
         'build/quickstart',
+        'operate/node-types',
         {
           type: 'category',
           label: 'New User Guide',
@@ -49,30 +50,8 @@ module.exports = {
       },
       collapsed: true,
       items: [
-        'operate/node-types',
-        {
-          type: 'category',
-          label: 'Run a Light Client',
-          link: {
-            type: 'generated-index',
-          },
-          collapsed: true,
-          items: [
-            'about/introduction/light-client',
-            'operate/node/light-client',
-            {
-              type: 'category',
-              label: 'Reference',
-              link: {
-                type: 'generated-index',
-              },
-              items: [
-                'api/light-client/avail-light-client-overview',
-                'api/light-client/embedding-the-light-client',
-              ],
-            },
-          ],
-        },
+        'operate/avail-node-basics',
+        'operate/simple-node-deployment',
         'operate/system-requirements',
         {
           type: 'category',
@@ -118,6 +97,29 @@ module.exports = {
             'operate/validator/upgrade',
             'operate/validator/monitor',
             'operate/validator/chill',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Operate a Light Client',
+      link: {
+        type: 'generated-index',
+      },
+      collapsed: true,
+      items: [
+        'about/introduction/light-client',
+        'operate/node/light-client',
+        {
+          type: 'category',
+          label: 'Reference',
+          link: {
+            type: 'generated-index',
+          },
+          items: [
+            'api/light-client/avail-light-client-overview',
+            'api/light-client/embedding-the-light-client',
           ],
         },
       ],
