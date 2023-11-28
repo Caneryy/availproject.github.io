@@ -52,53 +52,8 @@ module.exports = {
       items: [
         'operate/avail-node-basics',
         'operate/simple-node-deployment',
+        'operate/advanced-node-deployment',
         'operate/system-requirements',
-        {
-          type: 'category',
-          label: 'Run a Full Node',
-          link: {
-            type: 'generated-index',
-          },
-          collapsed: true,
-          items: [
-            'operate/system-requirements',
-            {
-              type: 'category',
-              label: 'Full Node',
-              link: {
-                type: 'generated-index',
-              },
-              items: ['operate/node/binaries', 'operate/node/docker'],
-            },
-            'operate/node/rpc',
-            'operate/node/bootstrap',
-            'operate/node/relay',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Become a Validator',
-          link: {
-            type: 'generated-index',
-          },
-          collapsed: true,
-          items: [
-            'operate/validator/already-running-full-node',
-            {
-              type: 'category',
-              label: 'Run a Validator Node',
-              link: {
-                type: 'generated-index',
-              },
-              items: ['operate/validator/binaries', 'operate/validator/docker'],
-            },
-            'operate/validator/staking',
-            'operate/validator/backup',
-            'operate/validator/upgrade',
-            'operate/validator/monitor',
-            'operate/validator/chill',
-          ],
-        },
       ],
     },
     {
@@ -120,6 +75,8 @@ module.exports = {
           items: [
             'api/light-client/avail-light-client-overview',
             'api/light-client/embedding-the-light-client',
+            'operate/node/bootstrap',
+            'operate/node/relay',
           ],
         },
       ],

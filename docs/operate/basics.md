@@ -15,17 +15,15 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 ## Introduction
 
-The goal of this guide is to learn the basics of running Avail Node. No worries, it's not too complicated and it won't take you longer than 5 minutes to get a good grasp on how everything works.
+The goal of this guide is to help you learn the basics of running Avail Node. Don't worry; it's not too complicated, and it won't take you longer than 5 minutes to get a good grasp of how everything works.
 
 :::note Before you start
-All the guides, including this one, assume that you are using a Linux or macOS based system. If you are running Windows and want to follow this guide, make sure
-that you install WSL and continue the guide inisde a Ubuntu or Debian instance. To know more about WSL check the following [LINK](https://learn.microsoft.com/en-us/windows/wsl/install)
+All the guides, including this one, assume that you are using a Linux or macOS-based system. If you are running Windows and want to follow this guide, make sure to install WSL and continue the guide inside a Ubuntu or Debian instance. To learn more about WSL, check the following [LINK](https://learn.microsoft.com/en-us/windows/wsl/install).
 :::
 
 ## Installation & Setup
 
-Our first step is to get the prebuild binary for Avail Node. We offer a wide range of prebuilds but in case you don't see your linux flavour or architecture in here,
-head to the custom build section and build your own executable.
+Our first step is to obtain the prebuilt binary for Avail Node. We offer a wide range of prebuilds, but in case you don't see your Linux flavor or architecture here, head to the custom build section and create your own executable.
 
 Prebuild list:
 
@@ -35,7 +33,7 @@ Prebuild list:
 - Arch: [Latest](#arch)
 - Generic Linux: [x86_64](#generic-linux-x86_64) [Arm64](#generic-linux-arm64)
 
-Once you have found your OS (or picked the generic one), execute the given command to get the needed Avail Node binary.
+Once you have found your OS (or picked the generic one), execute the given command to obtain the needed Avail Node binary.
 
 #### Ubuntu 20.04
 
@@ -128,10 +126,9 @@ Output:
 Error: Input("Please specify which chain you want to run, e.g. --chain goldberg")
 ```
 
-Yikes, an error. This is OK, by default our node doesn't know what chain(network) it should connect to so to fix this we will give it one but
-not the one recommend, not yet.
+Yikes, an error. This is okay; by default, our node doesn't know which chain (network) it should connect to. To fix this, we will provide one, but not the recommended one, not yet.
 
-Instead we are going to run a development network:
+Instead, we are going to run a development network:
 
 ```bash
 ./data-avail --chain dev
@@ -176,7 +173,7 @@ Output:
 2023-11-27 16:26:52 💤 Idle (0 peers), best: #0 (0xdb94…2e21), finalized #0 (0xdb94…2e21), ⬇ 0 ⬆ 0
 ```
 
-OK, this is better. We are not getting any errors now but it's unclear what's exactly happening so let's go line by line to get some clairy.
+Okay, things are looking better now. No errors so far, but let's break it down for clarity.
 
 ### Understanding the logs
 
@@ -189,15 +186,15 @@ OK, this is better. We are not getting any errors now but it's unclear what's ex
 2023-11-27 16:26:31 👤 Role: FULL
 ```
 
-The first two and forth line tells us that we are runing Avail Node v1.8.3 with the Development chain. This is exactly as we wanted, so far so good.
+The first, second, and fourth lines indicate that we're running Avail Node v1.8.3 with the Development chain—exactly what we wanted.
 
-The fifth line, `🏷  Node name: cagey-owl-5997 `, says the name of our node is `cagey-owl-5997` which isn't that bad but not what we wanted. We will change that in a bit.
+The fifth line, `🏷  Node name: cagey-owl-5997`, shows our node name as `cagey-owl-5997`, which isn't ideal. We'll change that shortly.
 
-The last line, `👤 Role: FULL`, says that we are running our node in Full mode. Nodes in Full mode cannot produce blocks so this is something as well that we want change.
+The last line, `👤 Role: FULL`, reveals that our node is in Full mode, meaning it can't produce blocks. We'll address that too.
 
 ### Changing Name
 
-To change our name we can use the `--name` flag. Let's try it out. Before that Make sure that you stopped your node by doing Ctrl-C. After that let's rerun it with a new flag and use a more catchy name:
+To change our node's name, use the `--name` flag. Before proceeding, make sure to stop your node with Ctrl-C. Now, let's rerun it with a more appealing name:
 
 ```bash
 ./data-avail --chain dev --name KingMagnifico
@@ -217,9 +214,9 @@ Output:
 
 ### Changing from Full to Validator mode
 
-To run our node in validator mode we just need to pass the `--validator` flag together with the rest of them. Without running it in that mode the node will not produce any new blocks.
+To run our node in validator mode, add the `--validator` flag along with the others. Without this mode, the node won't produce new blocks.
 
-Let's stop our node again, Ctrl+C, and add rerun it with the `--validator` flag:
+Stop your node again with Ctrl+C and rerun it with the `--validator` flag::
 
 ```bash
 ./data-avail --chain dev --name KingMagnifico --validator
@@ -237,24 +234,20 @@ Output:
 ...
 ```
 
-This is what we were looking for. Instead of 'FULL' it says 'AUTHORITY' which means that our node is now ready to produce blocks, or to be more precise almost ready.
+Now, instead of 'FULL,' it should say 'AUTHORITY,' indicating that our node is almost ready to produce blocks.
 
 ### Session Keys and Peers
 
-If we let our program running for a minute or two we would see the same message being repeated over and over again:
+If we let our program run for a minute or two, we'll notice the same message being repeated:
 
 ```bash
 ...
 2023-11-27 16:48:57 💤 Idle (0 peers), best: #0 (0xdb94…2e21), finalized #0 (0xdb94…2e21), ⬇ 0 ⬆ 0
 ```
 
-Our node is working in validator mode but our network that we are running with this node expects validator 'Alice' to be online.
-In order for a node to produce blocks, besides using the'--validator' flag, it needs to have session keys that are used to sign different parts of block production.
-Without having these keys, it would be impossible for the network to know who produced the block thus we are stuk at block 0.
-In the next chapter we will tackle the problen on how to generate your own session keys but for this development network we can pass `--alice` as a flag and it will
-automatically inserted Alice's session keys.
+Our node is operating in validator mode, but the network expects validator 'Alice' to be online. To enable block production, besides using the `--validator` flag, the node needs session keys for signing various parts of block production. Without these keys, the network can't identify the block producer, leaving us stuck at block 0. In the next chapter, we'll address how to generate your own session keys. For this development network, we can use the `--alice` flag, and it will automatically insert Alice's session keys.
 
-Let's stop our node again, Ctrl+C, and add rerun it with the `--alice` flag:
+Let's stop our node again with Ctrl+C and rerun it with the `--alice` flag:
 
 ```bash
 ./data-avail --chain dev --name KingMagnifico --validator --alice
@@ -293,15 +286,13 @@ Output:
 2023-11-27 16:58:05 💤 Idle (0 peers), best: #3 (0x7891…9083), finalized #1 (0x65ff…0645), ⬇ 0 ⬆ 0
 ```
 
-And we are now running our own development network that is producing and finalising blocks. Now, if this doesn't work for you and you are still stuck at block zero you should pass `--force-authoring` together with the rest of flags and this should do the trick.
+Now, we are running our own development network and we are producing and finalizing blocks. If this doesn't work and you're still stuck at block zero, try adding `--force-authoring` along with the other flags.
 
 ### There Must Be A Simpler Way
 
-We used quite a lot of flags just to run a development network. Thankfully, there is an eaiser way to do it and that is by passing the `--dev` flag instead.
-The `--dev` flag combines the following flags into one: `--chain=dev`, `--force-authoring`, `--alice`, `--tmp`, and `--rpc-cors=all`.
-The last two flags are new to us but we will discuss the `--tmp` one in a bit.
+Although we've used several flags to run a development network, there's an easier way—use the `--dev` flag. This flag combines the following flags into one: `--chain=dev`, `--force-authoring`, `--alice`, `--tmp`, and `--rpc-cors=all`. The last two flags, `--tmp` and `--rpc-cors=all`, are new to us, and we'll discuss `--tmp` shortly.
 
-Let's stop our node again, Ctrl+C, and add rerun it with the `--dev` flag:
+Stop the node again with Ctrl+C and rerun it with the `--dev` flag:
 
 ```bash
 ./data-avail --dev --name KingMagnifico
@@ -326,11 +317,9 @@ And we get the same result.
 
 ### Temporary and Persistante Storage
 
-When our node is running a network it needs to store network related data somewhere. By not specifing it it stores the data in a default location which most of the time
-is not something that we actually want.
+When our node runs a network, it needs to store network-related data. By not specifying a location, it stores the data in a default location, which is often not what we want.
 
-By passing the `--tmp` flag it will use a different location each time we want to run our network. This is implied when using `--dev` and useful when we don't care about our state.
-Tomake our storage persistante through our runs, we can use the `-d` flag.
+Using the `--tmp` flag makes it use a different location each time we run our network. This is implied when using `--dev` and is useful when we don't care about preserving our state. To make our storage persistent through runs, we can use the `-d` flag.
 
 ```bash
 ./data-avail --dev --name KingMagnifico -d ./node-data
@@ -348,22 +337,19 @@ Output
 2023-11-27 17:13:54 💾 Database: RocksDb at ./node-data/chains/avail_development_network/db/full
 ```
 
-In the logs(output) you will see that our database is now located at `./node-data/chains/avail_development_network/db/full` instead of somewhere in the `tmp` folder.
+In the logs (output), you'll notice our database is now located at `./node-data/chains/avail_development_network/db/full` instead of the `tmp` folder.
 
-Once the node is running a new folder named `node-data` will be created in the working directory. If you take a look at it you will see that it consits of subdirectoires like `chains` and `avail_development_network` and
-inside the last directory there should be our network data.
+Once the node is running, a new folder named `node-data` will be created in the working directory. If you take a look, you will see that it consists of subdirectories like `chains` and `avail_development_network`. Inside the last directory, you should find our network data.
 
-After a minute or two, stop the node by pressing Ctrl+C and rerun it. It should still use the same storage(database) location and continue for the last produced block.
+After running the node for a minute or two, stop it by pressing Ctrl+C and rerun it. It should use the same storage (database) location and continue from the last produced block.
 
-Now stop the node, Ctrl+C, and let's remove our storage `rm ./node-data -r`.
+Now stop the node with Ctrl+C and let's remove our storage: `rm ./node-data -r`.
 
 ## Conneting Our Node to Goldberg
 
-With all this prelimanry knowledge ready to be used, we can now finally do the last step and connect our node to the Goldberg network.
-I will use the same name as before, KingMagnifico, but I suggest you to chose a one that you like.
+With all this preliminary knowledge ready to be used, we can now finally take the last step and connect our node to the Goldberg network. I will use the same name as before, KingMagnifico, but I suggest you choose one that you like.
 
-Before running our node, make sure that our storage folder is removed or empty and that we don't have any previous node already running.
-With that said, let's finally do what we were waiting for since the beginning:
+Before running our node, ensure that our storage folder is removed or empty, and that we don't have any previous nodes already running. With that said, let's finally do what we've been waiting for since the beginning:
 
 ```bash
 ./data-avail --chain goldberg --name KingMagnifico --validator -d ./node-data
@@ -381,7 +367,7 @@ Output:
 2023-11-27 17:24:41 💾 Database: RocksDb at ./node-data/chains/avail_goldberg_testnet/db/full
 ```
 
-OK, so far so good. Our role is `AUTHORITY` which means that we are running in validator mode. Our name is clearly the correct one, KingMagnifico, and our database location is correct. Let's see the next few log lines
+Okay, so far so good. Our role is `AUTHORITY`, which means that we are running in validator mode. Our name is clearly the correct one, KingMagnifico, and our database location is correct. Let's see the next few log lines:
 
 ```bash
 2023-11-27 17:24:43 🔨 Initializing Genesis block/state (state: 0x6bc7…ec83, header-hash: 0x6f09…a7ae)
@@ -411,7 +397,7 @@ OK, so far so good. Our role is `AUTHORITY` which means that we are running in v
 2023-11-27 17:24:53 ⚙️  Syncing 63.0 bps, target=#85251 (8 peers), best: #3000 (0x8189…6cc7), finalized #2560 (0x1282…a791), ⬇ 108.2kiB/s ⬆ 5.5kiB/s
 ```
 
-Nothing that we haven't seen besides the last two lines. `⚙️  Syncing` means that we are syncing all the blocks that were already built which is exactly what we wanted to see. Let's check the nect few lines
+Nothing that we haven't seen before, except for the last two lines. `⚙️  Syncing` means that we are syncing all the blocks that were already built, which is exactly what we wanted to see. Let's check the next few lines:
 
 ```bash
 2023-11-27 17:24:57 [3241] 💸 generated 13 npos targets
@@ -441,7 +427,7 @@ Nothing that we haven't seen besides the last two lines. `⚙️  Syncing` means
 2023-11-27 17:25:25 [11613] 💸 generated 74 npos voters, 35 from validators and 39 nominators
 ```
 
-It's syncing around 450 blocks per second, that's quite fast! If we leave it for 5 or 10 minutes it should be done syncing and this is what we are going to see:
+It's syncing around 450 blocks per second—quite fast! If we leave it for 5 or 10 minutes, it should be done syncing, and this is what we are going to see:
 
 ```bash
 2023-11-27 17:31:30 [84993] 💸 new validator set of size 185 has been processed for era 21
@@ -452,9 +438,8 @@ It's syncing around 450 blocks per second, that's quite fast! If we leave it for
 2023-11-27 17:31:48 💤 Idle (8 peers), best: #85272 (0x0410…df45), finalized #85270 (0x7604…006b), ⬇ 87.2kiB/s ⬆ 209.8kiB/s
 ```
 
-Once we see `💤 Idle` we are done syncing and our node has now fully catched up.
+Once we see `💤 Idle`, we are done syncing, and our node has now fully caught up.
 
 ## What's Next
 
-This is where our story ends. We have a working node connect to the Goldberg chain. It doesn't do much right, it certantly doesn't produce any blocks, but this is something that we will fix but before that let's
-discuss in the next chapter on how to do a simple but effective deployment.
+This is where our story ends. We have a working node connected to the Goldberg chain. It doesn't do much right now, certainly doesn't produce any blocks, but this is something that we will fix. Before that, let's discuss in the next chapter how to do a simple but effective deployment.
