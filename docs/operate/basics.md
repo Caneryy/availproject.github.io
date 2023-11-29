@@ -21,6 +21,10 @@ The goal of this guide is to help you learn the basics of running Avail Node. Do
 All the guides, including this one, assume that you are using a Linux or macOS-based system. If you are running Windows and want to follow this guide, make sure to install WSL and continue the guide inside a Ubuntu or Debian instance. To learn more about WSL, check the following [LINK](https://learn.microsoft.com/en-us/windows/wsl/install).
 :::
 
+:::note
+Before executing any commands, make sure that you fully read the chapter first before doing any actual work.
+:::
+
 ## Installation & Setup
 
 Our first step is to obtain the prebuilt binary for Avail Node. We offer a wide range of prebuilds, but in case you don't see your Linux flavor or architecture here, head to the custom build section and create your own executable.
